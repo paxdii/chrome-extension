@@ -10,7 +10,7 @@ let obstacleImg;
 
 function preload() {
   playerImg = loadImage('./content/player.png');
-  obstacleImg = loadImage('./content/Minecraft.png');
+  obstacleImg = loadImage('./content/enemy.png');
   bg = loadImage('./content/background.jpg');
 }
 
@@ -18,6 +18,12 @@ function setup() {
   const canvas = createCanvas(800, 400);
   canvas.parent("game-container");
   player = new Player();
+  frameRate(60);  // Setzt die Bildwiederholrate auf 60 FPS
+  setTimeout(() => {
+    const startScreen = document.getElementById('start-screen');
+    startScreen.style.opacity = '0';
+    startScreen.style.pointerEvents = 'none';
+  }, 2000);
 }
 
 function draw() {
@@ -71,6 +77,7 @@ function keyPressed() {
 function showGameOverScreen() {
   const gameOverContainer = document.getElementById('game-over-container');
   gameOverContainer.style.display = 'flex';
+  gameOverContainer.style.opacity = '1';
 
   const highScoreText = document.getElementById('high-score-text');
   highScoreText.innerText = 'High Score: ' + highScore;
@@ -85,12 +92,12 @@ function restartGame() {
 
 class Player {
   constructor() {
-    this.size = 40;
+    this.size = 60;  // Größe des Spielers erhöhen
     this.x = 50;
     this.y = height - this.size;
     this.velocityY = 0;
     this.gravity = 1.5;
-    this.jumpForce = -22;
+    this.jumpForce = -20;
   }
 
   show() {
@@ -112,17 +119,18 @@ class Player {
   }
 
   hits(obstacle) {
-    let hitboxHeight = this.velocityY < 0 ? this.size / 2 : this.size - 10;
-    return !(this.x > obstacle.x + obstacle.size || 
-             this.x + this.size < obstacle.x || 
-             this.y > obstacle.y + obstacle.size ||
-             this.y + hitboxHeight < obstacle.y);
+    let hitboxHeight = this.size / 2;  // Hitbox-Höhe auf die Hälfte der Spielergröße setzen
+    let hitboxWidth = this.size / 2;  // Hitbox-Breite auf die Hälfte der Spielergröße setzen
+    return !(this.x + hitboxWidth < obstacle.x || 
+             this.x + this.size - hitboxWidth > obstacle.x + obstacle.size || 
+             this.y + hitboxHeight < obstacle.y ||
+             this.y + this.size - hitboxHeight > obstacle.y + obstacle.size);
   }
 }
 
 class Obstacle {
   constructor() {
-    this.size = 50;
+    this.size = 60;  // Größe der Hindernisse erhöhen
     this.x = width;
     this.y = height - this.size;
     this.speed = 5;
