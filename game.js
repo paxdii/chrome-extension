@@ -2,9 +2,16 @@ let player;
 let obstacles = [];
 let score = 0;
 let obstacleRate = 60;
-let framesSinceLastObstacle = 0;  // Neuer Zähler für die Frames seit dem letzten Hindernis
+let framesSinceLastObstacle = 0;
 let gameOver = false;
 let highScore = 0;
+let playerImg;
+let obstacleImg;
+
+function preload() {
+  playerImg = loadImage('content/player.png');
+  obstacleImg = loadImage('content/Minecraft.png');
+}
 
 function setup() {
   const canvas = createCanvas(800, 400);
@@ -13,7 +20,7 @@ function setup() {
 }
 
 function draw() {
-  background(255);  
+  background(255);
 
   if (gameOver) {
     showGameOverScreen();
@@ -23,11 +30,11 @@ function draw() {
   player.show();
   player.move();
 
-  framesSinceLastObstacle++;  // Zähler für die Frames seit dem letzten Hindernis erhöhen
+  framesSinceLastObstacle++;
   if (framesSinceLastObstacle >= obstacleRate) {
     obstacles.push(new Obstacle());
-    obstacleRate = random(30, 90);  // Hindernisse erscheinen in einem zufälligen Intervall zwischen 30 und 90 Frames
-    framesSinceLastObstacle = 0;  // Zähler für die Frames seit dem letzten Hindernis zurücksetzen
+    obstacleRate = random(30, 90);
+    framesSinceLastObstacle = 0;
   }
 
   for (let i = obstacles.length - 1; i >= 0; i--) {
@@ -47,7 +54,7 @@ function draw() {
     }
   }
 
-  fill(0);  // Farbe des Textes auf Schwarz setzen
+  fill(0);
   textSize(32);
   text('Score: ' + score, 10, 50);
   score++;
@@ -85,8 +92,7 @@ class Player {
   }
 
   show() {
-    fill(0, 200, 100);
-    rect(this.x, this.y, this.size, this.size);
+    image(playerImg, this.x, this.y, this.size, this.size);
   }
 
   jump() {
@@ -121,8 +127,7 @@ class Obstacle {
   }
 
   show() {
-    fill(255, 0, 0);
-    rect(this.x, this.y, this.size, this.size);
+    image(obstacleImg, this.x, this.y, this.size, this.size);
   }
 
   move() {
