@@ -1,8 +1,6 @@
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    width: 800px;
+    height: 400px;
     margin: 0;
     overflow: hidden;
   }
@@ -10,9 +8,6 @@ body {
     position: relative;
     width: 800px;
     height: 400px;
-    background-image: url("content/background.jpg");
-    background-size: cover;
-    background-position: center;
   }
   #game-over-container {
     display: none;

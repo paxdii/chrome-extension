@@ -9,8 +9,9 @@ let playerImg;
 let obstacleImg;
 
 function preload() {
-  playerImg = loadImage('content/player.png');
-  obstacleImg = loadImage('content/Minecraft.png');
+  playerImg = loadImage('./content/player.png');
+  obstacleImg = loadImage('./content/Minecraft.png');
+  bg = loadImage('./content/background.jpg');
 }
 
 function setup() {
@@ -20,7 +21,8 @@ function setup() {
 }
 
 function draw() {
-  background(255);
+  background(250);
+  image(bg, 0, 0, width, height);
 
   if (gameOver) {
     showGameOverScreen();
