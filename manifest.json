@@ -15,7 +15,7 @@
         "48": "./content/icon.png",
         "128": "./content/icon.png"
     },
-    "permissions": ["activeTab"],
+    "permissions": [],
     "web_accessible_resources": [
       {
         "resources": ["p5.js"],
