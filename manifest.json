@@ -5,15 +5,15 @@
     "action": {
       "default_popup": "index.html",
       "default_icon": {
-        "16": "./content/icon.png",
-        "48": "./content/icon.png",
-        "128": "./content/icon.png"
+        "16": "./content/icon_16.png",
+        "48": "./content/icon_48.png",
+        "128": "./content/icon_128.png"
       }
     },
     "icons": {
-        "16": "./content/icon.png",
-        "48": "./content/icon.png",
-        "128": "./content/icon.png"
+        "16": "./content/icon_16.png",
+        "48": "./content/icon_48.png",
+        "128": "./content/icon_128.png"
     },
     "permissions": [],
     "web_accessible_resources": [
