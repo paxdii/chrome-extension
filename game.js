@@ -7,7 +7,6 @@ let gameOver = false;
 let highScore = 0;
 let playerImg;
 let obstacleImg;
-let difficulty;
 let gamePaused = false;
 
 function preload() {
@@ -27,13 +26,11 @@ function setup() {
     startScreen.style.pointerEvents = 'none';
   }, 2000);
 
-  const restartButton = document.getElementById('restart-button');
-  restartButton.addEventListener('click', restartGame);
-
-  difficulty = document.getElementById('difficulty').value;
-  adjustDifficulty();
-
   highScore = localStorage.getItem('highScore') || 0;
+
+  document.getElementById('restart-button').addEventListener('click', function() {
+    location.reload();
+  });
 }
 
 function draw() {
@@ -70,12 +67,21 @@ function draw() {
     if (obs.x + obs.size < 0) {
       obstacles.splice(i, 1);
     }
+    if (gamePaused) {
+      return;
+  }
   }
 
   fill(0);
   textSize(32);
   text('Score: ' + score, 10, 50);
   score++;
+}
+
+function keyPressed() {
+  if (key === ' ' && !gameOver && player.y === height - player.size) {
+    player.jump();
+  }
 }
 
 function showGameOverScreen() {
@@ -92,44 +98,45 @@ function showGameOverScreen() {
   }
 }
 
-function restartGame() {
-  location.reload();
-}
-
-function adjustDifficulty() {
-  switch (difficulty) {
-    case 'easy':
-      obstacleRate = 90;
-      Obstacle.prototype.speed = 4;
-      break;
-    case 'medium':
-      obstacleRate = 60;
-      Obstacle.prototype.speed = 5;
-      break;
-    case 'hard':
-      obstacleRate = 30;
-      Obstacle.prototype.speed = 6;
-      break;
-  }
-}
-
-// pause game
+// Pause game
 document.getElementById('pause-button').addEventListener('click', function() {
   gamePaused = !gamePaused;
-  document.getElementById('difficulty-menu').style.display = gamePaused ? 'block' : 'none';
+  const difficultyMenu = document.getElementById('difficulty-menu');
+  if (gamePaused) {
+      difficultyMenu.style.display = 'flex';
+      difficultyMenu.style.opacity = '1';
+  } else {
+      difficultyMenu.style.display = 'none';
+      difficultyMenu.style.opacity = '0';
+      adjustDifficulty();
+  }
 });
 
-document.getElementById('easy-button').addEventListener('click', function() {
-  obstacleRate = 90;
-  Obstacle.prototype.speed = 5;
-});
-
-document.getElementById('medium-button').addEventListener('click', function() {
-  obstacleRate = 60;
-  Obstacle.prototype.speed = 7;
-});
-
-document.getElementById('hard-button').addEventListener('click', function() {
-  obstacleRate = 30;
-  Obstacle.prototype.speed = 10;
-});
+function adjustDifficulty() {
+  const difficultyButtons = document.querySelectorAll('#difficulty-menu button');
+  difficultyButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      let newSpeed;
+      switch (button.id) {
+        case 'easy-button':
+          obstacleRate = 90;
+          newSpeed = 5;
+          break;
+        case 'medium-button':
+          obstacleRate = 60;
+          newSpeed = 7;
+          break;
+        case 'hard-button':
+          obstacleRate = 30;
+          newSpeed = 10;
+          break;
+      }
+      // Update the speed of all existing obstacles
+      for (let i = 0; i < obstacles.length; i++) {
+        obstacles[i].speed = newSpeed;
+      }
+      gamePaused = false;
+      document.getElementById('difficulty-menu').style.display = 'none';
+    });
+  });
+}

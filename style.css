@@ -9,7 +9,7 @@ body {
   width: 800px;
   height: 400px;
 }
-#game-over-container {
+#game-over-container, #difficulty-menu {
   display: none;
   position: absolute;
   top: 0;
@@ -30,12 +30,13 @@ body {
 }
 #high-score-text {
   color: white;
-  font-size: 24px;
+  font-size24px;
   margin-bottom: 20px;
 }
-#restart-button {
+#restart-button, #easy-button, #medium-button, #hard-button {
   padding: 10px 20px;
   font-size: 24px;
+  margin: 10px;
 }
 #start-screen {
   position: absolute;
@@ -49,4 +50,9 @@ body {
   justify-content: center;
   align-items: center;
   transition: opacity 1s ease-out;
+}
+#pause-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }

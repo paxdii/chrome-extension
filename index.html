@@ -7,36 +7,32 @@
   <link rel="icon" type="image/svg+xml" href="./content/icon.png">
   <meta name="author" content="Paxdii Development">
   <title>Dream Runner</title>
+
   <script src="./library/p5.min.js"></script>
   <link rel="stylesheet" href="library/bootstrap.min.css">
 </head>
-<body>
-  <div id="game-container">
-    <!-- Game Over Screen -->
-    <div id="game-over-container">
-      <h1 id="game-over-text">Game Over</h1>
-      <h2 id="high-score-text"></h2>
-      <button id="restart-button" class="btn btn-primary">Neustarten</button>
-    </div>
-    <!-- Start Screen -->
-    <div id="start-screen">
-      <h1>Willkommen bei Dream Runner!</h1>
-      <p>Drücke Leertaste zum Springen</p>
-      <img src="./content/player.png" alt="Start Screen Image" style="height: 70px;">
-    </div>
-    <!-- Difficulty -->
-    <button id="pause-button" class="btn btn-primary">Pause</button>
 
-    <div id="difficulty-menu" style="display: none;">
-      <h2>Wähle eine Schwierigkeit:</h2>
-      <button id="easy-button" class="btn btn-success">Leicht</button>
-      <button id="medium-button" class="btn btn-warning">Mittel</button>
-      <button id="hard-button" class="btn btn-danger">Schwer</button>
+<body>
+    <div id="game-container">
+        <div id="game-over-container">
+          <h1 id="game-over-text">Game Over</h1>
+          <h2 id="high-score-text"></h2>
+          <button id="restart-button" class="btn btn-primary">Neustarten</button>
+        </div>
+        <div id="start-screen">
+          <h1>Willkommen bei Dream Runner!</h1>
+          <p>Drücke Leertaste zum Springen</p>
+          <img src="./content/player.png" alt="Start Screen Image" style="height: 70px;">
+        </div>
+        <div id="difficulty-menu">
+          <button id="easy-button" class="btn btn-success">Einfach</button>
+          <button id="medium-button" class="btn btn-warning">Mittel</button>
+          <button id="hard-button" class="btn btn-danger">Schwer</button>
+        </div>
+        <button id="pause-button" class="btn btn-secondary">Pause</button>
     </div>
-       
-  </div>
-  <script src="player.js"></script>
-  <script src="obstacle.js"></script>
-  <script src="game.js"></script>
+    <script src="game.js"></script>
+    <script src="player.js"></script>
+    <script src="obstacle.js"></script>
 </body>
 </html>
