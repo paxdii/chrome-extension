@@ -11,7 +11,8 @@ class Obstacle {
     }
   
     move() {
-      this.x -= this.speed;
-    }
+      if (!gamePaused) {
+        this.x -= this.speed;
+      }
   }
-  
+}

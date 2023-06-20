@@ -101,16 +101,20 @@ function showGameOverScreen() {
 // Pause game
 document.getElementById('pause-button').addEventListener('click', function() {
   gamePaused = !gamePaused;
+  const pauseButton = document.getElementById('pause-button');
   const difficultyMenu = document.getElementById('difficulty-menu');
   if (gamePaused) {
-      difficultyMenu.style.display = 'flex';
-      difficultyMenu.style.opacity = '1';
+    pauseButton.innerText = 'Weiter';
+    difficultyMenu.style.display = 'flex';
+    difficultyMenu.style.opacity = '1';
   } else {
-      difficultyMenu.style.display = 'none';
-      difficultyMenu.style.opacity = '0';
-      adjustDifficulty();
+    pauseButton.innerText = 'Pause';
+    difficultyMenu.style.display = 'none';
+    difficultyMenu.style.opacity = '0';
+    adjustDifficulty();
   }
 });
+
 
 function adjustDifficulty() {
   const difficultyButtons = document.querySelectorAll('#difficulty-menu button');
@@ -134,9 +138,10 @@ function adjustDifficulty() {
       // Update the speed of all existing obstacles
       for (let i = 0; i < obstacles.length; i++) {
         obstacles[i].speed = newSpeed;
-      }
+      } 
       gamePaused = false;
       document.getElementById('difficulty-menu').style.display = 'none';
+      button.click();
     });
   });
 }
