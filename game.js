@@ -18,12 +18,15 @@ function setup() {
   const canvas = createCanvas(800, 400);
   canvas.parent("game-container");
   player = new Player();
-  frameRate(60);  // Setzt die Bildwiederholrate auf 60 FPS
+  frameRate(60);
   setTimeout(() => {
     const startScreen = document.getElementById('start-screen');
     startScreen.style.opacity = '0';
     startScreen.style.pointerEvents = 'none';
   }, 2000);
+
+  const restartButton = document.getElementById('restart-button');
+  restartButton.addEventListener('click', restartGame);
 }
 
 function draw() {
@@ -68,12 +71,6 @@ function draw() {
   score++;
 }
 
-function keyPressed() {
-  if (key === ' ' && !gameOver && player.y === height - player.size) {
-    player.jump();
-  }
-}
-
 function showGameOverScreen() {
   const gameOverContainer = document.getElementById('game-over-container');
   gameOverContainer.style.display = 'flex';
@@ -81,66 +78,8 @@ function showGameOverScreen() {
 
   const highScoreText = document.getElementById('high-score-text');
   highScoreText.innerText = 'High Score: ' + highScore;
-
-  const restartButton = document.getElementById('restart-button');
-  restartButton.addEventListener('click', restartGame);
 }
 
 function restartGame() {
   location.reload();
-}
-
-class Player {
-  constructor() {
-    this.size = 60;  // Größe des Spielers erhöhen
-    this.x = 50;
-    this.y = height - this.size;
-    this.velocityY = 0;
-    this.gravity = 1.5;
-    this.jumpForce = -20;
-  }
-
-  show() {
-    image(playerImg, this.x, this.y, this.size, this.size);
-  }
-
-  jump() {
-    this.velocityY = this.jumpForce;
-  }
-
-  move() {
-    this.y += this.velocityY;
-    this.velocityY += this.gravity;
-
-    if (this.y > height - this.size) {
-      this.y = height - this.size;
-      this.velocityY = 0;
-    }
-  }
-
-  hits(obstacle) {
-    let hitboxHeight = this.size / 2;  // Hitbox-Höhe auf die Hälfte der Spielergröße setzen
-    let hitboxWidth = this.size / 2;  // Hitbox-Breite auf die Hälfte der Spielergröße setzen
-    return !(this.x + hitboxWidth < obstacle.x || 
-             this.x + this.size - hitboxWidth > obstacle.x + obstacle.size || 
-             this.y + hitboxHeight < obstacle.y ||
-             this.y + this.size - hitboxHeight > obstacle.y + obstacle.size);
-  }
-}
-
-class Obstacle {
-  constructor() {
-    this.size = 60;  // Größe der Hindernisse erhöhen
-    this.x = width;
-    this.y = height - this.size;
-    this.speed = 5;
-  }
-
-  show() {
-    image(obstacleImg, this.x, this.y, this.size, this.size);
-  }
-
-  move() {
-    this.x -= this.speed;
-  }
 }
