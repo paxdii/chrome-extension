@@ -25,11 +25,15 @@
       <img src="./content/player.png" alt="Start Screen Image" style="height: 70px;">
     </div>
     <!-- Difficulty -->
-    <select id="difficulty">
-      <option value="easy">Easy</option>
-      <option value="medium">Medium</option>
-      <option value="hard">Hard</option>
-    </select>    
+    <button id="pause-button" class="btn btn-primary">Pause</button>
+
+    <div id="difficulty-menu" style="display: none;">
+      <h2>Wähle eine Schwierigkeit:</h2>
+      <button id="easy-button" class="btn btn-success">Leicht</button>
+      <button id="medium-button" class="btn btn-warning">Mittel</button>
+      <button id="hard-button" class="btn btn-danger">Schwer</button>
+    </div>
+       
   </div>
   <script src="player.js"></script>
   <script src="obstacle.js"></script>

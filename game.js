@@ -8,6 +8,7 @@ let highScore = 0;
 let playerImg;
 let obstacleImg;
 let difficulty;
+let gamePaused = false;
 
 function preload() {
   playerImg = loadImage('./content/player.png');
@@ -31,6 +32,8 @@ function setup() {
 
   difficulty = document.getElementById('difficulty').value;
   adjustDifficulty();
+
+  highScore = localStorage.getItem('highScore') || 0;
 }
 
 function draw() {
@@ -82,6 +85,11 @@ function showGameOverScreen() {
 
   const highScoreText = document.getElementById('high-score-text');
   highScoreText.innerText = 'High Score: ' + highScore;
+
+  if (score > highScore) {
+    highScore = score;
+    localStorage.setItem('highScore', highScore);
+  }
 }
 
 function restartGame() {
@@ -104,7 +112,24 @@ function adjustDifficulty() {
       break;
   }
 }
-document.getElementById('difficulty').addEventListener('change', () => {
-  difficulty = document.getElementById('difficulty').value;
-  adjustDifficulty();
+
+// pause game
+document.getElementById('pause-button').addEventListener('click', function() {
+  gamePaused = !gamePaused;
+  document.getElementById('difficulty-menu').style.display = gamePaused ? 'block' : 'none';
+});
+
+document.getElementById('easy-button').addEventListener('click', function() {
+  obstacleRate = 90;
+  Obstacle.prototype.speed = 5;
+});
+
+document.getElementById('medium-button').addEventListener('click', function() {
+  obstacleRate = 60;
+  Obstacle.prototype.speed = 7;
+});
+
+document.getElementById('hard-button').addEventListener('click', function() {
+  obstacleRate = 30;
+  Obstacle.prototype.speed = 10;
 });
