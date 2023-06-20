@@ -7,6 +7,7 @@ let gameOver = false;
 let highScore = 0;
 let playerImg;
 let obstacleImg;
+let difficulty;
 
 function preload() {
   playerImg = loadImage('./content/player.png');
@@ -27,6 +28,9 @@ function setup() {
 
   const restartButton = document.getElementById('restart-button');
   restartButton.addEventListener('click', restartGame);
+
+  difficulty = document.getElementById('difficulty').value;
+  adjustDifficulty();
 }
 
 function draw() {
@@ -83,3 +87,24 @@ function showGameOverScreen() {
 function restartGame() {
   location.reload();
 }
+
+function adjustDifficulty() {
+  switch (difficulty) {
+    case 'easy':
+      obstacleRate = 90;
+      Obstacle.prototype.speed = 4;
+      break;
+    case 'medium':
+      obstacleRate = 60;
+      Obstacle.prototype.speed = 5;
+      break;
+    case 'hard':
+      obstacleRate = 30;
+      Obstacle.prototype.speed = 6;
+      break;
+  }
+}
+document.getElementById('difficulty').addEventListener('change', () => {
+  difficulty = document.getElementById('difficulty').value;
+  adjustDifficulty();
+});

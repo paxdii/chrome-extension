@@ -12,16 +12,24 @@
 </head>
 <body>
   <div id="game-container">
+    <!-- Game Over Screen -->
     <div id="game-over-container">
       <h1 id="game-over-text">Game Over</h1>
       <h2 id="high-score-text"></h2>
       <button id="restart-button" class="btn btn-primary">Neustarten</button>
     </div>
+    <!-- Start Screen -->
     <div id="start-screen">
       <h1>Willkommen bei Dream Runner!</h1>
       <p>Drücke Leertaste zum Springen</p>
       <img src="./content/player.png" alt="Start Screen Image" style="height: 70px;">
     </div>
+    <!-- Difficulty -->
+    <select id="difficulty">
+      <option value="easy">Easy</option>
+      <option value="medium">Medium</option>
+      <option value="hard">Hard</option>
+    </select>    
   </div>
   <script src="player.js"></script>
   <script src="obstacle.js"></script>
